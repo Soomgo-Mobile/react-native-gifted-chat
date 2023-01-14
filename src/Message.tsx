@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { View, StyleSheet, ViewStyle } from 'react-native'
+import { View, StyleSheet, ViewStyle, Platform } from 'react-native'
 
 import Avatar from './Avatar'
 import Bubble from './Bubble'
@@ -176,7 +176,14 @@ export default class Message<
     if (currentMessage) {
       const sameUser = isSameUser(currentMessage, nextMessage!)
       return (
-        <View>
+        <View
+          style={[
+            Platform.select({
+              android: this.props.inverted ? { scaleY: -1 } : {},
+              default: {},
+            }),
+          ]}
+        >
           {this.renderDay()}
           {currentMessage.system ? (
             this.renderSystemMessage()

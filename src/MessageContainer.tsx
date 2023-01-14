@@ -411,9 +411,17 @@ export default class MessageContainer<
           keyExtractor={this.keyExtractor}
           enableEmptySections
           automaticallyAdjustContentInsets={false}
-          inverted={inverted}
+          inverted={Platform.select({ android: !inverted, default: inverted })}
           data={this.props.messages}
-          style={styles.listStyle}
+          style={[
+            styles.listStyle,
+            Platform.select({
+              android: {
+                scaleY: -1,
+              },
+              default: {},
+            }),
+          ]}
           contentContainerStyle={styles.contentContainerStyle}
           renderItem={this.renderRow}
           {...this.props.invertibleScrollViewProps}
